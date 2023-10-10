@@ -1,4 +1,4 @@
-// @import "_reset";
+@import "_reset";
 * {
   box-sizing: border-box;
 }
@@ -15,7 +15,7 @@ body {
   height: 100vh;
   white-space: nowrap;
   text-align: center;
-  // *:not(script){}
+
   & > * {
     background-color: white;
     border: 1px solid #af7832;
@@ -50,10 +50,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    img {
-      width: 80%;
-      scale: 80%;
-    }
   }
 
   .copyright {
