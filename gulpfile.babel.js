@@ -8,6 +8,7 @@ import replace from "gulp-replace";
 import concat from "gulp-concat";
 import uglify from "gulp-uglify";
 import ghPages from "gh-pages";
+import htmlmin from "gulp-htmlmin";
 
 const jquery = "src/js/jquery-3.7.1.min.js";
 const sass = gulpSass(sass2);
@@ -24,7 +25,11 @@ const routes = {
   },
   js: {
     watch: "src/js/*",
-    src: "src/js/index.js",
+    src: {
+      index: "src/js/index.js",
+      click: "src/js/clickEvent.js",
+      menu: "src/js/openMenu.js",
+    },
     dest: "dest/js",
   },
 };
@@ -32,8 +37,11 @@ const home = () => {
   gulp
     .src(routes.html.watch)
     .pipe(replace('<script src="src/js/jquery-3.7.1.min.js"></script>', ""))
+    .pipe(replace('<script src="src/js/clickEvent.js"></script>', ""))
+    .pipe(replace('<script src="src/js/openMenu.js"></script>', ""))
     .pipe(replace("src/js/", "js/"))
     .pipe(replace("dest/css/", "css/"))
+    .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(gulp.dest(routes.html.dest));
 };
 
@@ -52,7 +60,7 @@ const styles = () =>
 
 const js = () => {
   gulp
-    .src([jquery, routes.js.src])
+    .src([jquery, routes.js.src.index, routes.js.src.click, routes.js.src.menu])
     .pipe(concat("index.js"))
     .pipe(uglify())
     .pipe(gulp.dest(routes.js.dest));
@@ -63,8 +71,6 @@ const watch = () => {
   gulp.watch(routes.css.watch, styles);
   gulp.watch(routes.js.watch, js);
 };
-
-const liveSever = () => {};
 
 const ghDeploy = async () => {
   await ghPages.publish("dest", {

@@ -1,6 +1,6 @@
 # clone-10by10
 
-10x19 Clone Coding
+## 10x19 Clone Coding
 
 https://10x19.co
 
@@ -10,8 +10,20 @@ Built by Gulp
 
 use Live Server (VScode Extention)
 
+### Devlope
+
 ```
-devlope : npm run dev
-build : npm run build
-deploy : npm run deploy
+npm run dev
+```
+
+### Build
+
+```
+npm run build
+```
+
+### Deploy
+
+```
+npm run deploy
 ```
